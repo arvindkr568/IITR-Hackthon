@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.git/
+.gitignore
+.github/
+.ipynb_checkpoints/
+reports/figures/*.png
+!models/model_pipeline.joblib

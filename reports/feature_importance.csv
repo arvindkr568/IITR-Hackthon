@@ -1,0 +1,137 @@
+feature,importance
+coupon_venue_affinity,0.038197607
+coupon_Restaurant(<20),0.016894594
+CoffeeHouse_never,0.01655481
+destination_No Urgent Place,0.016089235
+expiration_1d,0.015381874
+expiration_2h,0.015094625
+coupon_Carry out & Take away,0.014126323
+is_sunny,0.011837706
+is_no_urgent,0.011327145
+weather_Sunny,0.011154196
+RestaurantLessThan20_missing,0.010483493
+direction_same,0.00964631
+maritalStatus_Unmarried partner,0.00962057
+coupon_Bar,0.00926885
+passanger_Friend(s),0.00921743
+coupon_Restaurant(20-50),0.009210787
+Bar_num,0.009045859
+edu_num,0.009038984
+CoffeeHouse_num,0.008789323
+occupation_Architecture & Engineering,0.008739666
+income_$62500 - $74999,0.008600225
+gender_Male,0.0085331425
+education_Graduate degree (Masters or Doctorate),0.008311688
+time_6PM,0.008303719
+occupation_Student,0.008266569
+toCoupon_GEQ25min,0.008207518
+Bar_never,0.00813679
+occupation_Healthcare Practitioners & Technical,0.008117074
+Restaurant20To50_num,0.008084201
+RestaurantLessThan20_never,0.008060234
+income_$87500 - $99999,0.008031545
+Bar_missing,0.008014122
+income_$75000 - $87499,0.008010181
+direction_opp,0.007956243
+time_10PM,0.00790674
+CoffeeHouse_1~3,0.007881648
+occupation_Food Preparation & Serving Related,0.0078171445
+occupation_Construction & Extraction,0.0078003174
+coupon_Coffee House,0.007615134
+age_num,0.0076115625
+Restaurant20To50_4~8,0.007544424
+passanger_Kid(s),0.0074527008
+maritalStatus_Married partner,0.007424688
+gender_Female,0.0073743365
+income_num,0.007334127
+Restaurant20To50_gt8,0.0073263
+total_venue_activity,0.007309562
+income_$25000 - $37499,0.007293551
+Bar_less1,0.0072537507
+CoffeeHouse_gt8,0.007240938
+occupation_Sales & Related,0.0072270664
+occupation_Legal,0.007223842
+occupation_Office & Administrative Support,0.007223178
+age_36,0.007182206
+occupation_Management,0.0070436695
+age_31,0.0070240153
+weather_Snowy,0.006991381
+CarryAway_1~3,0.006991176
+occupation_Computer & Mathematical,0.006954363
+time_10AM,0.0069399886
+income_$50000 - $62499,0.0069383183
+education_Bachelors degree,0.006937164
+RestaurantLessThan20_gt8,0.0069313464
+RestaurantLessThan20_num,0.006909376
+RestaurantLessThan20_less1,0.006868311
+income_$37500 - $49999,0.0068571665
+maritalStatus_Single,0.0068412614
+has_children,0.006833447
+occupation_Healthcare Support,0.0068040877
+occupation_Installation Maintenance & Repair,0.006802573
+income_$12500 - $24999,0.006702801
+weather_Rainy,0.0066835675
+age_41,0.0066199233
+RestaurantLessThan20_4~8,0.0066020987
+occupation_Education&Training&Library,0.006598594
+education_Some college - no degree,0.0065528997
+Bar_gt8,0.006552692
+age_26,0.0065346872
+Restaurant20To50_never,0.0065055494
+occupation_Life Physical Social Science,0.006447232
+RestaurantLessThan20_1~3,0.00642118
+Bar_4~8,0.0064209825
+occupation_Unemployed,0.006379922
+CoffeeHouse_less1,0.0063384543
+income_$100000 or More,0.006325849
+occupation_Business & Financial,0.006288736
+CarryAway_gt8,0.006239409
+age_below21,0.0061328053
+car_missing,0.006130063
+CarryAway_less1,0.0061094533
+age_50plus,0.006044909
+education_Associates degree,0.0060429475
+Restaurant20To50_less1,0.006006353
+CarryAway_num,0.0059848935
+Bar_1~3,0.0059213317
+Restaurant20To50_missing,0.005894686
+occupation_Transportation & Material Moving,0.0058842064
+age_46,0.005881374
+toCoupon_GEQ15min,0.005852597
+passanger_Partner,0.005832925
+maritalStatus_Divorced,0.0057816603
+education_Some High School,0.005767889
+occupation_Community & Social Services,0.0057193874
+is_alone,0.0056916494
+time_7AM,0.0056832824
+time_hour,0.0056805727
+passanger_Alone,0.005672761
+occupation_Arts Design Entertainment Sports & Media,0.0056719286
+CoffeeHouse_4~8,0.0056627844
+income_Less than $12500,0.00566154
+Restaurant20To50_1~3,0.0056611146
+CarryAway_4~8,0.0056462223
+maritalStatus_Widowed,0.005645424
+CarryAway_missing,0.0056160535
+occupation_Retired,0.005548262
+expiration_hours,0.0055001453
+CoffeeHouse_missing,0.0054999404
+education_High School Graduate,0.0054994537
+age_21,0.005399106
+destination_Work,0.0053826184
+occupation_Personal Care & Service,0.0053660264
+distance_score,0.005294084
+temperature,0.005278364
+time_2PM,0.0052745272
+CarryAway_never,0.0048021893
+destination_Home,0.004703757
+car_crossover,0.004659852
+occupation_Protective Service,0.0046582744
+occupation_Production Occupations,0.004498696
+car_Car that is too old to install Onstar :D,0.0039812652
+occupation_Building & Grounds Cleaning & Maintenance,0.0038141708
+car_Scooter and motorcycle,0.0036576677
+occupation_Farming Fishing & Forestry,0.0035338472
+car_Mazda5,0.0032246367
+car_do not drive,0.0028642842
+toCoupon_GEQ5min,0.0

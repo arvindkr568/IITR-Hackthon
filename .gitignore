@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Data & Models (tracked via explicit pipelines)
+data/processed/*.parquet
+*.joblib
+*.pkl
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# IDE / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/
+
+# Docker / Deployment logs
+*.log
+catboost_info/
