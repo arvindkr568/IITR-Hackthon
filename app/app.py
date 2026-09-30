@@ -41,6 +41,54 @@ FIGURES_DIR = BASE_DIR / "reports" / "figures"
 # Custom Styling
 st.markdown("""
 <style>
+    .team-banner {
+        background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+        border: 1px solid #4338CA;
+        border-radius: 12px;
+        padding: 12px 24px;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #E0E7FF;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(49, 46, 129, 0.3);
+        margin-bottom: 20px;
+    }
+    .team-avatar-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding: 15px;
+        background: #0F172A;
+        border-radius: 16px;
+        border: 1px solid #1E293B;
+    }
+    .avatar-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s ease-in-out;
+    }
+    .avatar-card:hover {
+        transform: translateY(-4px);
+    }
+    .avatar-img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 3px solid #6366F1;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        object-fit: cover;
+    }
+    .avatar-name {
+        margin-top: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #F8FAFC;
+    }
     .main-title {
         font-size: 2.6rem;
         font-weight: 800;
@@ -70,8 +118,80 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Helper function to convert local image files to base64 strings
+import base64
+
+def get_image_src(file_path: Path, fallback_url: str) -> str:
+    if file_path.exists():
+        with open(file_path, "rb") as f:
+            encoded = base64.b64encode(f.read()).decode()
+            ext = file_path.suffix.lower().replace(".", "")
+            if ext == "jpg":
+                ext = "jpeg"
+            return f"data:image/{ext};base64,{encoded}"
+    return fallback_url
+
+ASSETS_DIR = BASE_DIR / "app" / "assets"
+
+# Top Team Header Banner
+st.markdown("<div class='team-banner'>🎓 IIT Roorkee Batch 10 Hackathon Team 2 Achivers</div>", unsafe_allow_html=True)
+
+# Team Members with actual photos & fallback URLs
+team_members = [
+    {
+        "name": "Arvind",
+        "src": get_image_src(ASSETS_DIR / "arvind.png", "https://ui-avatars.com/api/?name=Arvind&background=2563EB&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Mithun",
+        "src": get_image_src(ASSETS_DIR / "mithun.png", "https://ui-avatars.com/api/?name=Mithun&background=7C3AED&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Ravi",
+        "src": get_image_src(ASSETS_DIR / "ravi.png", "https://ui-avatars.com/api/?name=Ravi&background=059669&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Vinod",
+        "src": get_image_src(ASSETS_DIR / "vinod.png", "https://ui-avatars.com/api/?name=Vinod&background=D97706&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Gayatri",
+        "src": get_image_src(ASSETS_DIR / "gayatri.jpg", "https://ui-avatars.com/api/?name=Gayatri&background=DB2777&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Manish",
+        "src": get_image_src(ASSETS_DIR / "manish.jpg", "https://ui-avatars.com/api/?name=Manish&background=4F46E5&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Akash",
+        "src": get_image_src(ASSETS_DIR / "akash.jpg", "https://ui-avatars.com/api/?name=Akash&background=0284C7&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Arun",
+        "src": get_image_src(ASSETS_DIR / "arun.jpg", "https://ui-avatars.com/api/?name=Arun&background=DC2626&color=fff&size=128&bold=true&rounded=true")
+    },
+    {
+        "name": "Joy",
+        "src": get_image_src(ASSETS_DIR / "joy.jpg", "https://ui-avatars.com/api/?name=Joy&background=0D9488&color=fff&size=128&bold=true&rounded=true")
+    }
+]
+
+col_avatars = st.columns(len(team_members))
+for idx, member in enumerate(team_members):
+    with col_avatars[idx]:
+        st.markdown(f"""
+        <div style="text-align: center;">
+            <img src="{member['src']}" 
+                 style="width: 95px; height: 95px; border-radius: 50%; border: 3px solid #818CF8; box-shadow: 0 6px 12px rgba(0,0,0,0.5); object-fit: cover;">
+            <div style="margin-top: 8px; font-weight: 600; font-size: 1rem; color: #F1F5F9;">{member['name']}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<div class='main-title'>🎟️ Coupon Acceptance ML Platform</div>", unsafe_allow_html=True)
 st.markdown("<div class='sub-title'>End-to-End Pipeline Execution, Custom Data Ingestion, Model Analytics & Cloud Deployment</div>", unsafe_allow_html=True)
+
 
 # Navigation Tabs
 tab_predict, tab_upload, tab_steps, tab_aws = st.tabs([
