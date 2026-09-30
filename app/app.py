@@ -152,7 +152,7 @@ team_members = [
     },
     {
         "name": "Vinod",
-        "src": get_image_src(ASSETS_DIR / "vinod.png", "https://ui-avatars.com/api/?name=Vinod&background=D97706&color=fff&size=128&bold=true&rounded=true")
+        "src": get_image_src(ASSETS_DIR / "vinod.jpg", "https://ui-avatars.com/api/?name=Vinod&background=D97706&color=fff&size=128&bold=true&rounded=true")
     },
     {
         "name": "Gayatri",
@@ -287,7 +287,7 @@ with tab_predict:
 # ==========================================
 with tab_upload:
     st.header("📤 Upload Custom Training & Test Data")
-    st.write("Upload custom CSV files (`train.csv` and `test.csv`) to re-run schema validation, feature engineering, and automated model training.")
+    st.write("Upload custom CSV files (`train.csv` and `test.csv`) to validate data contract schema, execute feature engineering, train candidate models, and verify validation metrics.")
 
     col_u1, col_u2 = st.columns(2)
     with col_u1:
@@ -297,12 +297,20 @@ with tab_upload:
 
     if uploaded_train is not None:
         df_custom_train = pd.read_csv(uploaded_train)
-        st.success(f"Uploaded Train Dataset: {df_custom_train.shape[0]} rows, {df_custom_train.shape[1]} columns.")
+        st.success(f"✅ Uploaded Train Dataset: {df_custom_train.shape[0]} rows, {df_custom_train.shape[1]} columns.")
+        
+        # Verify Target Column Presence
+        if "Y" in df_custom_train.columns:
+            y_counts = df_custom_train["Y"].value_counts().to_dict()
+            st.info(f"Target 'Y' Distribution: Class 1 (Accepted): {y_counts.get(1, 0)}, Class 0 (Rejected): {y_counts.get(0, 0)}")
+        else:
+            st.error("⚠️ Uploaded CSV missing target column 'Y'. Please ensure target 'Y' is included.")
+
         st.dataframe(df_custom_train.head(3), use_container_width=True)
 
     if uploaded_test is not None:
         df_custom_test = pd.read_csv(uploaded_test)
-        st.success(f"Uploaded Test Dataset: {df_custom_test.shape[0]} rows, {df_custom_test.shape[1]} columns.")
+        st.success(f"✅ Uploaded Test Dataset: {df_custom_test.shape[0]} rows, {df_custom_test.shape[1]} columns.")
         st.dataframe(df_custom_test.head(3), use_container_width=True)
 
     if st.button("🚀 Run End-to-End Retraining Pipeline on Uploaded Data"):
@@ -312,11 +320,56 @@ with tab_upload:
             if uploaded_test is not None:
                 df_custom_test.to_csv(raw_dir / "test.csv", index=False)
             
-            with st.spinner("Executing Pipeline Steps (Data Quality -> EDA -> Baseline -> Ensemble -> Explainability)..."):
-                from src.train_final import run_pipeline
-                run_pipeline()
-                st.success("🎉 Pipeline retraining completed successfully!")
-                st.balloons()
+            with st.status("🚀 Executing Full Machine Learning Pipeline...", expanded=True) as status:
+                st.write("🔍 Step 1: Validating Data Schema & Contract...")
+                from src.data_loader import load_datasets
+                load_datasets()
+                st.write("✅ Step 1 Complete: Schema contract verified.")
+                
+                st.write("📋 Step 2: Running Data Quality Audit...")
+                from src.data_quality import run_quality_check
+                run_quality_check()
+                st.write("✅ Step 2 Complete: Quality audit saved.")
+
+                st.write("📈 Step 3: Generating EDA Visualizations...")
+                from src.eda import generate_eda_plots
+                generate_eda_plots()
+                st.write("✅ Step 3 Complete: Figures saved.")
+
+                st.write("⚡ Step 4: Training & Comparing Candidate Models across Stratified 5-Fold CV...")
+                from src.train import run_model_comparison
+                scoreboard_df, winning_model_name, _ = run_model_comparison()
+                st.write(f"✅ Step 4 Complete: Champion model selected (**{winning_model_name}**).")
+
+                st.write("💡 Step 5: Generating Model Explainability & Feature Importances...")
+                from src.explainability import generate_explainability_report
+                generate_explainability_report()
+                st.write("✅ Step 5 Complete: Feature importances extracted.")
+
+                st.write("🎯 Step 6: Generating Test Set Predictions...")
+                from src.predict import generate_predictions
+                sub_df = generate_predictions()
+                st.write(f"✅ Step 6 Complete: Generated {len(sub_df)} test set predictions.")
+
+                status.update(label="🎉 End-to-End Retraining Pipeline Executed Successfully!", state="complete", expanded=True)
+
+            st.balloons()
+
+            # Display Live Retraining Verification Scoreboard
+            st.markdown("---")
+            st.subheader("🏆 Updated Retraining Model Scoreboard (5-Fold CV Validation)")
+            st.dataframe(scoreboard_df, use_container_width=True, hide_index=True)
+
+            st.success(f"**Winning Model Selected:** `{winning_model_name}` (ROC-AUC: `{scoreboard_df.iloc[0]['roc_auc']:.4f}`, Accuracy: `{scoreboard_df.iloc[0]['accuracy']:.4f}`, F1-Score: `{scoreboard_df.iloc[0]['f1_score']:.4f}`)")
+            
+            # Submission File Download
+            csv_bytes = sub_df.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label="📥 Download Updated Test Predictions (submission.csv)",
+                data=csv_bytes,
+                file_name="submission.csv",
+                mime="text/csv"
+            )
         else:
             st.warning("Please upload at least `train.csv` before launching retraining.")
 
